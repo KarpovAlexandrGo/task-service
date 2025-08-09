@@ -1,0 +1,17 @@
+# Binaries
+/bin/
+/task-service
+
+# Environment
+.env
+*.env
+
+# IDE
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# Temporary
+tmp/
