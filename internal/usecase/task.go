@@ -22,7 +22,7 @@ type Logger interface {
 type TaskUseCase interface {
 	Create(ctx context.Context, task entity.Task) (entity.Task, error)
 	Get(ctx context.Context, id string) (entity.Task, error)
-	List(ctx context.Context, page, limit int) ([]entity.Task, error) // Добавлены page, limit
+	List(ctx context.Context, page, limit int) ([]entity.Task, error)
 	Update(ctx context.Context, task entity.Task) (entity.Task, error)
 	Delete(ctx context.Context, id string) error
 }
@@ -90,7 +90,7 @@ func (uc *TaskUseCaseImpl) List(ctx context.Context, page, limit int) ([]entity.
 	tasks, err := uc.cacheRepo.GetTasks(ctx)
 	if err == nil {
 		logger.Log.Info("Tasks retrieved from cache")
-		return tasks, nil // Простая реализация, можно добавить пагинацию в кэше
+		return tasks[limit*(page-1) : limit*page], nil // Простая пагинация
 	}
 
 	logger.Log.Info("Cache miss, retrieving from repository")
